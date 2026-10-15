@@ -1,0 +1,351 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-family: Arial, Helvetica, sans-serif;
+
+  /* Green background */
+  background: linear-gradient(
+    135deg,
+    #064e3b,
+    #087f5b,
+    #0b8f68
+  );
+
+  overflow: hidden;
+}
+
+
+/* Main Game */
+
+.game-container {
+  width: 100%;
+  max-width: 430px;
+
+  padding: 25px 20px;
+
+  text-align: center;
+}
+
+
+h1 {
+  margin-bottom: 22px;
+
+  color: white;
+
+  font-size: clamp(2rem, 9vw, 2.8rem);
+  font-weight: 700;
+
+  text-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+}
+
+
+/* Board */
+
+.board {
+  width: min(85vw, 330px);
+
+  margin: 0 auto;
+
+  display: grid;
+
+  grid-template-columns: repeat(3, 1fr);
+
+  gap: 10px;
+}
+
+
+/* Individual cells */
+
+.cell {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+
+  border: none;
+  border-radius: 10px;
+
+  background: #e7e7e7;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-size: clamp(2.5rem, 14vw, 4rem);
+  font-weight: 400;
+
+  color: #111;
+
+  cursor: pointer;
+
+  transition:
+    transform 0.12s ease,
+    background 0.2s ease;
+}
+
+.cell:hover {
+  background: #f2f2f2;
+}
+
+.cell:active {
+  transform: scale(0.96);
+}
+
+
+/* X */
+
+.cell.x {
+  color: #111;
+}
+
+
+/* O */
+
+.cell.o {
+  color: #111;
+}
+
+
+/* Winning cells */
+
+.cell.winner {
+  background: #86efac;
+
+  animation: winnerAnimation 0.5s ease;
+}
+
+@keyframes winnerAnimation {
+
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.08);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+
+}
+
+
+/* Turn text */
+
+.turn {
+  margin-top: 18px;
+
+  color: rgba(255, 255, 255, 0.9);
+
+  font-size: 15px;
+
+  font-weight: 700;
+
+  letter-spacing: 0.5px;
+}
+
+
+/* Restart button */
+
+.restart-btn {
+  margin-top: 35px;
+
+  padding: 15px 24px;
+
+  border: none;
+  border-radius: 6px;
+
+  background: #064e3b;
+
+  color: white;
+
+  font-size: 16px;
+
+  cursor: pointer;
+
+  transition: all 0.2s ease;
+}
+
+.restart-btn:hover {
+  background: #022c22;
+}
+
+.restart-btn:active {
+  transform: scale(0.96);
+}
+
+
+/* =========================
+   WINNING MODAL
+========================= */
+
+.modal-overlay {
+
+  position: fixed;
+
+  inset: 0;
+
+  display: flex;
+
+  justify-content: center;
+  align-items: center;
+
+  background: rgba(0, 0, 0, 0.58);
+
+  opacity: 0;
+  visibility: hidden;
+
+  transition: opacity 0.25s ease;
+
+  z-index: 100;
+}
+
+
+/* Show modal */
+
+.modal-overlay.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+
+/* Modal box */
+
+.modal {
+
+  width: min(90%, 360px);
+
+  padding: 30px 25px 20px;
+
+  background: white;
+
+  border-radius: 12px;
+
+  text-align: center;
+
+  box-shadow:
+    0 20px 50px rgba(0, 0, 0, 0.3);
+
+  transform: scale(0.85);
+
+  transition: transform 0.25s ease;
+}
+
+
+.modal-overlay.show .modal {
+  transform: scale(1);
+}
+
+
+/* Modal message */
+
+.modal-message {
+
+  margin-bottom: 12px;
+
+  color: #111;
+
+  font-size: clamp(1.5rem, 6vw, 2rem);
+
+  line-height: 1.3;
+}
+
+
+/* New Game */
+
+.new-game-btn {
+
+  min-width: 115px;
+
+  padding: 10px 20px;
+
+  border: none;
+
+  border-radius: 4px;
+
+  background: linear-gradient(
+    90deg,
+    #8b5cf6,
+    #c026d3
+  );
+
+  color: white;
+
+  font-size: 16px;
+
+  cursor: pointer;
+
+  transition: transform 0.15s ease;
+}
+
+.new-game-btn:hover {
+  transform: scale(1.04);
+}
+
+.new-game-btn:active {
+  transform: scale(0.96);
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 480px) {
+
+  body {
+    padding: 15px;
+  }
+
+  .game-container {
+    padding: 20px 10px;
+  }
+
+  h1 {
+    margin-bottom: 20px;
+  }
+
+  .board {
+    width: min(88vw, 330px);
+    gap: 9px;
+  }
+
+  .turn {
+    margin-top: 16px;
+    font-size: 14px;
+  }
+
+  .restart-btn {
+    margin-top: 30px;
+  }
+
+}
+
+
+/* Very small phones */
+
+@media (max-width: 350px) {
+
+  .board {
+    width: 90vw;
+    gap: 6px;
+  }
+
+  .cell {
+    border-radius: 8px;
+  }
+
+  .restart-btn {
+    margin-top: 25px;
+  }
+
+}
